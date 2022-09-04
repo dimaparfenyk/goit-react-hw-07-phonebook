@@ -1,20 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const contactsSlice = createSlice({
-    
-    name: 'contacts',
-    initialState: {
-        contacts: []
-    },
-    reducers: {
-        addContact(state, action) {
-            state.contacts.push(action.payload)
-        },
-        removeContact(state, action) {
-        state.contacts = state.contacts.filter(({id}) => id !== action.payload);
-        },
-    },
-});
+export const contactsApi = createApi({
+  reducerPath: 'contacts',
+    baseQuery: fetchBaseQuery({
+        baseUrl: 'https://6314d47bfc9dc45cb4f4b65e.mockapi.io',
+    }),
+   tagTypes:['Contact'],
+  endpoints: (builder) => ({
+    getContacts: builder.query({
+        query: () => '/contacts',  
+        providesTags:['Contact'],
+    }),
+  }),
+})
 
-export const { addContact, removeContact } = contactsSlice.actions;
-export default contactsSlice.reducer;
+export const { useGetContactsQuery } = contactsApi;
