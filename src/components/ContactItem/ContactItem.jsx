@@ -1,7 +1,7 @@
 import { ListItem,SubText, Text, Button} from "components/ContactList/ContactList.styled"
 import { useDeleteContactMutation } from "components/redux/features/contactSlice"
 
-export const ContactListItem = ({ name, phone,id }) => { 
+export const ContactListItem = ({ name, phone,id, isLoading}) => { 
     const [deleteContact, result] = useDeleteContactMutation();
    console.log(result)
     return(<ListItem >

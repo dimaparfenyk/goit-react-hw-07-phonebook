@@ -7,7 +7,7 @@ import { ContactListItem } from "components/ContactItem/ContactItem";
 
 export const ContactList = () => {
     const filter = useSelector(state => state.filter.value);
-    const { data, error, isLoading } = useGetContactsQuery()
+    const { data} = useGetContactsQuery()
 
     const filteredItems = filter
         ? data.filter(({ name }) => name.toLowerCase().includes(filter))
@@ -19,7 +19,8 @@ export const ContactList = () => {
                 key={id}
                 id={id}
                 name={name}
-                phone={phone}/>   
+                phone={phone}
+                />   
         )}
     </List>)
 };
