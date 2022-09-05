@@ -1,28 +1,25 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector} from 'react-redux';
 import { useGetContactsQuery } from "components/redux/features/contactSlice";
-import { List, ListItem, Button, Text,SubText } from "./ContactList.styled";
+import { List} from "./ContactList.styled";
+import { ContactListItem } from "components/ContactItem/ContactItem";
 
 export const ContactList = () => {
     const filter = useSelector(state => state.filter.value);
-    // const contacts = useSelector(state => state.contacts.contacts);
-
     const { data, error, isLoading } = useGetContactsQuery()
-   
-    const dispatch= useDispatch()
 
-    // const filteredItems = filter
-    //     ? data.filter(({ name }) => name.toLowerCase().includes(filter))
-    //     : data;
+    const filteredItems = filter
+        ? data.filter(({ name }) => name.toLowerCase().includes(filter))
+        : data;
     
     return (<List>
-        {data && data.map(({ name, phone, id}) =>
-            <ListItem key={id}>
-                <SubText>{name}:</SubText>
-                <Text>{phone}</Text>
-                <Button >Удалить</Button>    
-            </ListItem>
+        {data && filteredItems.map(({ name, phone, id}) =>
+            <ContactListItem
+                key={id}
+                id={id}
+                name={name}
+                phone={phone}/>   
         )}
     </List>)
 };
